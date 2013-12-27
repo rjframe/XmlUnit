@@ -58,6 +58,21 @@ namespace XmlUnit
       AreEqual(xmlDiff, String.Empty, null);
     }
 
+    public static void AreEqual(XmlInput controlXml, XmlInput testXml, String message, Object[] args)
+    {
+      AreEqual(new XmlDiff(controlXml, testXml), message, args);
+    }
+
+    public static void AreEqual(XmlInput controlXml, XmlInput testXml, String message)
+    {
+      AreEqual(new XmlDiff(controlXml, testXml), message, null);
+    }
+
+    public static void AreEqual(XmlInput controlXml, XmlInput testXml)
+    {
+      AreEqual(new XmlDiff(controlXml, testXml), String.Empty, null);
+    }
+
     /// <summary>Assert that two pieces of XML markup are similar</summary>
     /// <param name="controlTextReader">The TextReader object to test against</param>
     /// <param name="testTextReader">The TextReader object to test</param>
@@ -476,17 +491,17 @@ namespace XmlUnit
     public static void XPathEvaluatesTo(String expression, String xml, String expectedValue, String message,
         Object[] args)
     {
-      XPathEvaluatesTo(expression, new XmlInput(xml), expression, message, args);
+      XPathEvaluatesTo(expression, new XmlInput(xml), expectedValue, message, args);
     }
 
     public static void XPathEvaluatesTo(String expression, String xml, String expectedValue, String message)
     {
-      XPathEvaluatesTo(expression, new XmlInput(xml), expression, message, null);
+      XPathEvaluatesTo(expression, new XmlInput(xml), expectedValue, message, null);
     }
 
     public static void XPathEvaluatesTo(String expression, String xml, String expectedValue)
     {
-      XPathEvaluatesTo(expression, new XmlInput(xml), expression, String.Empty, null);
+      XPathEvaluatesTo(expression, new XmlInput(xml), expectedValue, String.Empty, null);
     }
 
     public static void XPathEvaluatesTo(String expression, TextReader xmlReader, String expectedValue,
@@ -514,6 +529,7 @@ namespace XmlUnit
     {
       Xslt xslt = new Xslt(xslTransform);
       XmlOutput output = xslt.Transform(xmlToTransform);
+      Console.WriteLine(output.AsString());
       AreEqual(expectedResult, output.AsXml());
     }
 
