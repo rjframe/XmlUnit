@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29D95638-9BBF-428A-ABCB-7D2B45301B69}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XmlUnit.Tests</RootNamespace>
+    <AssemblyName>Tests</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="etc\Book.rng" />
+    <None Include="etc\Book.rngc" />
+    <None Include="etc\Book.xsd" />
+    <None Include="etc\broken.xsd" />
+    <None Include="etc\test.dtd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="csharp\AssemblyInfo.cs" />
+    <Compile Include="csharp\DiffConfigurationTests.cs" />
+    <Compile Include="csharp\DifferenceTests.cs" />
+    <Compile Include="csharp\DiffResultTests.cs" />
+    <Compile Include="csharp\ValidatorTests.cs" />
+    <Compile Include="csharp\XmlAssertionTests.cs" />
+    <Compile Include="csharp\XmlDiffTests.cs" />
+    <Compile Include="csharp\XmlInputTests.cs" />
+    <Compile Include="csharp\XPathTests.cs" />
+    <Compile Include="csharp\XsltTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="etc\animal.xsl" />
+    <Content Include="etc\BookXsdGenerated.xml" />
+    <Content Include="etc\BookXsdGeneratedNoSchema.xml" />
+    <Content Include="etc\controlDetail.xml" />
+    <Content Include="etc\controlNamespaces.xml" />
+    <Content Include="etc\invalidBook.xml" />
+    <Content Include="etc\InvalidBookXsdGeneratedNoSchema.xml" />
+    <Content Include="etc\test.blame.html" />
+    <Content Include="etc\test1.xml" />
+    <Content Include="etc\test2.xml" />
+    <Content Include="etc\testAnimal.xml" />
+    <Content Include="etc\testDetail.xml" />
+    <Content Include="etc\testNamespaces.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir)packages\NUnit.Runners.*\tools\nunit.exe $(TargetPath)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
