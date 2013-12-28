@@ -9,13 +9,13 @@ namespace XmlUnit
   public class XmlOutput
   {
 
-    private readonly XslTransform _transform;
+    private readonly XslCompiledTransform _transform;
     private readonly XsltArgumentList _xsltArgs;
     private readonly XPathNavigator _navigator;
     private readonly XmlResolver _resolverForXmlTransformed;
     private readonly XmlReader[] _readersToClose;
 
-    internal XmlOutput(XslTransform transform, XsltArgumentList xsltArgs, XPathNavigator navigator,
+    internal XmlOutput(XslCompiledTransform transform, XsltArgumentList xsltArgs, XPathNavigator navigator,
         XmlResolver resolverForXmlTransformed, XmlReader[] readersToClose)
     {
       _transform = transform;
@@ -53,13 +53,19 @@ namespace XmlUnit
 
     public void Write(Stream viaStream)
     {
-      _transform.Transform(_navigator, _xsltArgs, viaStream, _resolverForXmlTransformed);
+      using (var writer = new XmlTextWriter(viaStream, System.Text.Encoding.Default))
+      {
+        _transform.Transform(_navigator, _xsltArgs, writer, _resolverForXmlTransformed);
+      }
       CleanUp();
     }
 
     public void Write(TextWriter viaTextWriter)
     {
-      _transform.Transform(_navigator, _xsltArgs, viaTextWriter, _resolverForXmlTransformed);
+      using (var writer = new XmlTextWriter(viaTextWriter))
+      {
+        _transform.Transform(_navigator, _xsltArgs, writer, _resolverForXmlTransformed);
+      }
       CleanUp();
     }
   }

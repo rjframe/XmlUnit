@@ -53,11 +53,13 @@ namespace XmlUnit
 
     public XmlOutput Transform(XmlReader xmlTransformed, XmlResolver resolverForXmlTransformed, XsltArgumentList xsltArgs)
     {
-      var transform = new XslTransform();
+      var transform = new XslCompiledTransform();
       var xsltReader = _xsltInput.CreateXmlReader();
 
-      transform.Load(xsltReader, _xsltResolver, _evidence);
-
+      var settings = new XsltSettings();
+      
+      transform.Load(xsltReader, settings, _xsltResolver);
+      
       XmlSpace space = XmlSpace.Default;
       XPathDocument document = new XPathDocument(xmlTransformed, space);
       XPathNavigator navigator = document.CreateNavigator();
