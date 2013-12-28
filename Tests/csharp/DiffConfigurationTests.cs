@@ -20,9 +20,8 @@ namespace XmlUnit.Tests
     [Test]
     public void DefaultConfiguredWithGenericDescription()
     {
-      DiffConfiguration diffConfiguration = new DiffConfiguration();
-      Assert.AreEqual(DiffConfiguration.DEFAULT_DESCRIPTION,
-                             diffConfiguration.Description);
+      var diffConfiguration = new DiffConfiguration();
+      Assert.AreEqual(DiffConfiguration.DEFAULT_DESCRIPTION, diffConfiguration.Description);
 
       Assert.AreEqual(DiffConfiguration.DEFAULT_DESCRIPTION,
                              new XmlDiff("", "").OptionalDescription);

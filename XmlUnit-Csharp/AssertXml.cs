@@ -19,12 +19,12 @@ namespace XmlUnit
     /// <param name="assertion">true if asserting that the result is similar</param>
     /// <param name="message">The message that will be displayed on failure</param>
     /// <param name="args">Arguments to be used in formatting the message</param>
-    private static void AreEqual(XmlDiff xmlDiff, Boolean assertion, String message, Object[] args)
+    private static void AreEqual(XmlDiff xmlDiff, Boolean assertion, String message = "", Object[] args = null)
     {
       var diffResult = xmlDiff.Compare();
       String msg = message;
 
-      if (message.Equals(String.Empty))
+      if (String.IsNullOrEmpty(message))
       {
         msg = diffResult.StringValue;
       }
@@ -43,34 +43,14 @@ namespace XmlUnit
     /// <param name="xmlDiff">The result of an XML comparison</param>
     /// <param name="message">The message that will be displayed on failure</param>
     /// <param name="args">Arguments to be used in formatting the message</param>
-    public static void AreEqual(XmlDiff xmlDiff, String message, Object[] args)
+    public static void AreEqual(XmlDiff xmlDiff, String message = "", Object[] args = null)
     {
       AreEqual(xmlDiff, true, message, args);
     }
 
-    public static void AreEqual(XmlDiff xmlDiff, String message)
-    {
-      AreEqual(xmlDiff, message, null);
-    }
-
-    public static void AreEqual(XmlDiff xmlDiff)
-    {
-      AreEqual(xmlDiff, String.Empty, null);
-    }
-
-    public static void AreEqual(XmlInput controlXml, XmlInput testXml, String message, Object[] args)
+    public static void AreEqual(XmlInput controlXml, XmlInput testXml, String message = "", Object[] args = null)
     {
       AreEqual(new XmlDiff(controlXml, testXml), message, args);
-    }
-
-    public static void AreEqual(XmlInput controlXml, XmlInput testXml, String message)
-    {
-      AreEqual(new XmlDiff(controlXml, testXml), message, null);
-    }
-
-    public static void AreEqual(XmlInput controlXml, XmlInput testXml)
-    {
-      AreEqual(new XmlDiff(controlXml, testXml), String.Empty, null);
     }
 
     /// <summary>Assert that two pieces of XML markup are similar</summary>
@@ -78,56 +58,21 @@ namespace XmlUnit
     /// <param name="testTextReader">The TextReader object to test</param>
     /// <param name="message">The message that will be displayed on failure</param>
     /// <param name="args">Arguments to be used in formatting the message</param>
-    public static void AreEqual(TextReader controlTextReader, TextReader testTextReader, String message, Object[] args)
+    public static void AreEqual(TextReader controlTextReader, TextReader testTextReader,
+        String message = "", Object[] args = null)
     {
       AreEqual(new XmlDiff(controlTextReader, testTextReader), message, args);
     }
 
-    /// <summary>Assert that two pieces of XML are similar</summary>
-    /// <param name="controlTextReader">The TextReader object to test against</param>
-    /// <param name="testTextReader">The TextReader object to test</param>
-    /// <param name="message">The message that will be displayed on failure</param>
-    public static void AreEqual(TextReader controlTextReader, TextReader testTextReader, String message)
-    {
-      AreEqual(new XmlDiff(controlTextReader, testTextReader), message, null);
-    }
-
-    /// <summary>Assert that two pieces of XML are similar</summary>
-    /// <param name="controlTextReader">The TextReader object to test against</param>
-    /// <param name="testTextReader">The TextReader object to test</param>
-    public static void AreEqual(TextReader controlTextReader, TextReader testTextReader)
-    {
-      AreEqual(new XmlDiff(controlTextReader, testTextReader), String.Empty, null);
-    }
-
-    public static void AreNotEqual(XmlDiff xmlDiff, String message, Object[] args)
+    public static void AreNotEqual(XmlDiff xmlDiff, String message = "", Object[] args = null)
     {
       AreEqual(xmlDiff, false, message, args);
     }
 
-    public static void AreNotEqual(XmlDiff xmlDiff, String message)
-    {
-      AreNotEqual(xmlDiff, message, null);
-    }
-
-    public static void AreNotEqual(XmlDiff xmlDiff)
-    {
-      AreNotEqual(xmlDiff, String.Empty, null);
-    }
-
-    public static void AreNotEqual(TextReader controlTextReader, TextReader testTextReader, String message, Object[] args)
+    public static void AreNotEqual(TextReader controlTextReader, TextReader testTextReader,
+        String message = "", Object[] args = null)
     {
       AreNotEqual(new XmlDiff(controlTextReader, testTextReader), message, args);
-    }
-
-    public static void AreNotEqual(TextReader controlTextReader, TextReader testTextReader, String message)
-    {
-      AreNotEqual(new XmlDiff(controlTextReader, testTextReader), message, null);
-    }
-
-    public static void AreNotEqual(TextReader controlTextReader, TextReader testTextReader)
-    {
-      AreNotEqual(new XmlDiff(controlTextReader, testTextReader), String.Empty, null);
     }
 
     #endregion AreEqual/AreNotEqual
@@ -285,18 +230,17 @@ namespace XmlUnit
 
     #region IsValidXml/IsNotValidXml
 
-
     /// <summary>Worker method to determine if a given piece of XML is valid</summary>
     /// <param name="validator">The object that validates the XML</param>
     /// <param name="assertion">true if asserting that the XML is valid</param>
     /// <param name="message">The message that will be displayed on failure</param>
     /// <param name="args">Arguments to be used in formatting the message</param>
     /// <seealso cref="XmlUnit.Validator"/>
-    private static void IsValidXml(Validator validator, Boolean assertion, String message, Object[] args)
+    private static void IsValidXml(Validator validator, Boolean assertion, String message = "", Object[] args = null)
     {
       String msg = message;
 
-      if (message.Equals(String.Empty))
+      if (String.IsNullOrEmpty(message))
       {
         msg = validator.ValidationMessage;
       }
@@ -316,208 +260,82 @@ namespace XmlUnit
     /// <param name="message">The message that will be displayed on failure</param>
     /// <param name="args">Arguments to be used in formatting the message</param>
     /// <seealso cref="XmlUnit.Validator"/>
-    public static void IsValidXml(Validator validator, String message, Object[] args)
+    public static void IsValidXml(Validator validator, String message = "", Object[] args = null)
     {
       IsValidXml(validator, true, message, args); 
     }
 
-    /// <summary>Assert that a Validator instance returns true</summary>
-    /// <param name="validator">The object that validates the XML</param>
-    /// <param name="message">The message that will be displayed on failure</param>
-    /// <seealso cref="XmlUnit.Validator"/>
-    public static void IsValidXml(Validator validator, String message)
-    {
-      IsValidXml(validator, message, null);
-    }
-
-    /// <summary>Assert that a Validator instance returns true</summary>
-    /// <param name="validator">The object that validates the XML</param>
-    /// <seealso cref="XmlUnit.Validator"/>
-    public static void IsValidXml(Validator validator)
-    {
-      IsValidXml(validator, String.Empty, null);
-    }
-    
     /// <summary>Assert that a given piece of XML is valid. It must have a DOCTYPE.</summary>
     /// <param name="xmlText">The XML to validate</param>
     /// <param name="baseUri">The XML's base URI</param>
     /// <param name="message">The message that will be displayed on failure</param>
     /// <param name="args">Arguments to be used in formatting the message</param>
-    public static void IsValidXml(String xmlText, String baseUri, String message, Object[] args)
+    public static void IsValidXml(String xmlText, String baseUri, String message = "", Object[] args = null)
     {
       IsValidXml(new XmlInput(xmlText, baseUri), message, args);
     }
 
     /// <summary>Assert that a given piece of XML is valid. It must have a DOCTYPE.</summary>
     /// <param name="xmlText">The XML to validate</param>
-    /// <param name="baseUri">The XML's base URI</param>
-    /// <param name="message">The message that will be displayed on failure</param>
-    public static void IsValidXml(String xmlText, String baseUri, String message)
-    {
-      IsValidXml(new XmlInput(xmlText, baseUri), message, null);
-    }
-
-    /// <summary>Assert that a given piece of XML is valid. It must have a DOCTYPE.</summary>
-    /// <param name="xmlText">The XML to validate</param>
     /// <param name="message">The message that will be displayed on failure</param>
     /// <param name="args">Arguments to be used in formatting the message</param>
-    public static void IsValidXml(String xmlText, String message, Object[] args)
+    public static void IsValidXml(String xmlText, String message = "", Object[] args = null)
     {
       IsValidXml(new XmlInput(xmlText), message, args);
     }
 
-    /// <summary>Assert that a given piece of XML is valid. It must have a DOCTYPE.</summary>
-    /// <param name="xmlText">The XML to validate</param>
-    /// <param name="message">The message that will be displayed on failure</param>
-    public static void IsValidXml(String xmlText, String message)
-    {
-      IsValidXml(new XmlInput(xmlText), message, null);
-    }
-
-    /// <summary>Assert that a given piece of XML is valid. It must have a DOCTYPE.</summary>
-    /// <param name="xmlText">The XML to validate</param>
-    public static void IsValidXml(String xmlText)
-    {
-      IsValidXml(new XmlInput(xmlText), String.Empty, null);
-    }
-
-    public static void IsValidXml(TextReader reader, String baseUri, String message, Object[] args)
+    public static void IsValidXml(TextReader reader, String baseUri, String message = "", Object[] args = null)
     {
       IsValidXml(new XmlInput(reader, baseUri), message, args);
     }
     
-    public static void IsValidXml(TextReader reader, String baseUri, String message)
-    {
-      IsValidXml(new XmlInput(reader, baseUri), message, null);
-    }
-    
-    public static void IsValidXml(TextReader reader, String message, Object[] args)
+    public static void IsValidXml(TextReader reader, String message = "", Object[] args = null)
     {
       IsValidXml(new XmlInput(reader), message, args);
     }
 
-    public static void IsValidXml(TextReader reader, String message)
-    {
-      IsValidXml(new XmlInput(reader), message, null);
-    }
-
-    public static void IsValidXml(TextReader reader)
-    {
-      IsValidXml(new XmlInput(reader), String.Empty, null);
-    }
-
-    public static void IsValidXml(XmlInput xmlInput, String message, Object[] args)
+    public static void IsValidXml(XmlInput xmlInput, String message = "", Object[] args = null)
     {
       IsValidXml(new Validator(xmlInput), message, args);
     }
     
-    public static void IsValidXml(XmlInput xmlInput, String message)
-    {
-      IsValidXml(new Validator(xmlInput), message, null);
-    }
-
-    public static void IsValidXml(XmlInput xmlInput)
-    {
-      IsValidXml(new Validator(xmlInput), String.Empty, null);
-    }
-
     #endregion IsValidXml/IsNotValidXml
 
     #region XPath
 
-    public static void XPathExists(String expression, XmlInput xmlInput, String message, Object[] args)
+    public static void XPathExists(String expression, XmlInput xmlInput, String message = "", Object[] args = null)
     {
       XPath xpath = new XPath(expression);
       NUnit.Framework.Assert.AreEqual(true, xpath.XPathExists(xmlInput), message, args);
     }
 
-    public static void XPathExists(String expression, XmlInput xmlInput, String message)
-    {
-      XPathExists(expression, xmlInput, message, null);
-    }
-
-    public static void XPathExists(String expression, XmlInput xmlInput)
-    {
-      XPathExists(expression, xmlInput, String.Empty, null);
-    }
-
-    public static void XPathExists(String expression, String xml, String message, Object[] args)
+    public static void XPathExists(String expression, String xml, String message = "", Object[] args = null)
     {
       XPathExists(expression, new XmlInput(xml), message, args);
     }
 
-    public static void XPathExists(String expression, String xml, String message)
-    {
-      XPathExists(expression, new XmlInput(xml), message, null);
-    }
-
-    public static void XPathExists(String expression, String xml)
-    {
-      XPathExists(expression, new XmlInput(xml), String.Empty, null);
-    }
-
-    public static void XPathExists(String expression, TextReader xmlReader, String message, Object[] args)
+    public static void XPathExists(String expression, TextReader xmlReader, String message = "", Object[] args = null)
     {
       XPathExists(expression, new XmlInput(xmlReader), message, args);
     }
 
-    public static void XPathExists(String expression, TextReader xmlReader, String message)
-    {
-      XPathExists(expression, new XmlInput(xmlReader), message, null);
-    }
-
-    public static void XPathExists(String expression, TextReader xmlReader)
-    {
-      XPathExists(expression, new XmlInput(xmlReader), String.Empty, null);
-    }
-
     public static void XPathEvaluatesTo(String expression, XmlInput xmlInput, String expectedValue,
-        String message, Object[] args)
+        String message = "", Object[] args = null)
     {
       var xpath = new XPath(expression);
       NUnit.Framework.Assert.AreEqual(expectedValue, xpath.EvaluateXPath(xmlInput), message, args);
     }
 
-    public static void XPathEvaluatesTo(String expression, XmlInput xmlInput, String expectedValue, String message)
-    {
-      XPathEvaluatesTo(expression, xmlInput, expectedValue, message, null);
-    }
-
-    public static void XPathEvaluatesTo(String expression, XmlInput xmlInput, String expectedValue)
-    {
-      XPathEvaluatesTo(expression, xmlInput, expectedValue, String.Empty, null);
-    }
-
-    public static void XPathEvaluatesTo(String expression, String xml, String expectedValue, String message,
-        Object[] args)
+    public static void XPathEvaluatesTo(String expression, String xml, String expectedValue, String message = "",
+        Object[] args = null)
     {
       XPathEvaluatesTo(expression, new XmlInput(xml), expectedValue, message, args);
     }
 
-    public static void XPathEvaluatesTo(String expression, String xml, String expectedValue, String message)
-    {
-      XPathEvaluatesTo(expression, new XmlInput(xml), expectedValue, message, null);
-    }
-
-    public static void XPathEvaluatesTo(String expression, String xml, String expectedValue)
-    {
-      XPathEvaluatesTo(expression, new XmlInput(xml), expectedValue, String.Empty, null);
-    }
-
     public static void XPathEvaluatesTo(String expression, TextReader xmlReader, String expectedValue,
-        String message, Object[] args)
+        String message = "", Object[] args = null)
     {
       XPathEvaluatesTo(expression, new XmlInput(xmlReader), expectedValue, message, args);
-    }
-
-    public static void XPathEvaluatesTo(String expression, TextReader xmlReader, String expectedValue, String message)
-    {
-      XPathEvaluatesTo(expression, new XmlInput(xmlReader), expectedValue, message, null);
-    }
-
-    public static void XPathEvaluatesTo(String expression, TextReader xmlReader, String expectedValue)
-    {
-      XPathEvaluatesTo(expression, new XmlInput(xmlReader), expectedValue, String.Empty, null);
     }
 
     #endregion XPath
@@ -525,7 +343,7 @@ namespace XmlUnit
     #region XSL
 
     public static void XslTransformResults(XmlInput xslTransform, XmlInput xmlToTransform, XmlInput expectedResult,
-        String message, Object[] args)
+        String message = "", Object[] args = null)
     {
       Xslt xslt = new Xslt(xslTransform);
       XmlOutput output = xslt.Transform(xmlToTransform);
@@ -533,35 +351,11 @@ namespace XmlUnit
       AreEqual(expectedResult, output.AsXml());
     }
 
-    public static void XslTransformResults(XmlInput xslTransform, XmlInput xmlToTransform, XmlInput expectedResult,
-        String message)
-    {
-      XslTransformResults(xslTransform, xmlToTransform, expectedResult, message, null);
-    }
-
-    public static void XslTransformResults(XmlInput xslTransform, XmlInput xmlToTransform, XmlInput expectedResult)
-    {
-      XslTransformResults(xslTransform, xmlToTransform, expectedResult, String.Empty, null);
-    }
-
     public static void XslTransformResults(String xslTransform, String xmlToTransform, String expectedResult,
-        String message, Object[] args)
+        String message = "", Object[] args = null)
     {
       XslTransformResults(new XmlInput(xslTransform), new XmlInput(xmlToTransform), new XmlInput(expectedResult),
           message, args);
-    }
-
-    public static void XslTransformResults(String xslTransform, String xmlToTransform, String expectedResult,
-        String message)
-    {
-      XslTransformResults(new XmlInput(xslTransform), new XmlInput(xmlToTransform), new XmlInput(expectedResult),
-          message, null);
-    }
-
-    public static void XslTransformResults(String xslTransform, String xmlToTransform, String expectedResult)
-    {
-      XslTransformResults(new XmlInput(xslTransform), new XmlInput(xmlToTransform), new XmlInput(expectedResult),
-          String.Empty, null);
     }
 
     #endregion XSL
