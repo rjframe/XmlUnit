@@ -1,7 +1,16 @@
-/*
+/* Original XmlUnit (version 0.4):
 ******************************************************************
 Copyright (c) 2001-2007, Jeff Martin, Tim Bacon
 All rights reserved.
+
+The source code can be found at http://xmlunit.sourceforge.net/
+
+Modifications copyright 2014 Ryan Frame.
+All rights reserved.
+
+The source code can be found at http://github.com/rjframe/XmlUnit
+
+******************************************************************
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
