@@ -162,9 +162,9 @@ namespace XmlUnit.Tests
     [Test]
     public void AssertXslTransformResultsWorksWithXmlInput()
     {
-      StreamReader xsl = GetStreamReader(".\\..\\tests\\etc\\animal.xsl");
+      StreamReader xsl = GetStreamReader(".\\..\\..\\etc\\animal.xsl");
       XmlInput xslt = new XmlInput(xsl);
-      StreamReader xml = GetStreamReader(".\\..\\tests\\etc\\testAnimal.xml");
+      StreamReader xml = GetStreamReader(".\\..\\..\\etc\\testAnimal.xml");
       XmlInput xmlToTransform = new XmlInput(xml);
       XmlInput expectedXml = new XmlInput("<dog/>");
       AssertXml.XslTransformResults(xslt, xmlToTransform, expectedXml);
@@ -173,9 +173,9 @@ namespace XmlUnit.Tests
     [Test]
     public void AssertXslTransformResultsCatchesFalsePositive()
     {
-      StreamReader xsl = GetStreamReader(".\\..\\tests\\etc\\animal.xsl");
+      StreamReader xsl = GetStreamReader(".\\..\\..\\etc\\animal.xsl");
       XmlInput xslt = new XmlInput(xsl);
-      StreamReader xml = GetStreamReader(".\\..\\tests\\etc\\testAnimal.xml");
+      StreamReader xml = GetStreamReader(".\\..\\..\\etc\\testAnimal.xml");
       XmlInput xmlToTransform = new XmlInput(xml);
       XmlInput expectedXml = new XmlInput("<cat/>");
       bool caughtException = true;
