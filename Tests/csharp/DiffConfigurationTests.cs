@@ -34,7 +34,6 @@ namespace XmlUnit.Tests
       Assert.AreEqual(DiffConfiguration.DEFAULT_USE_VALIDATING_PARSER,
                              diffConfiguration.UseValidatingParser);
 
-      bool exception = false;
       using (FileStream controlFileStream = File.Open(ValidatorTests.VALID_FILE,
                                                       FileMode.Open,
                                                       FileAccess.Read))
@@ -42,27 +41,20 @@ namespace XmlUnit.Tests
                                                    FileMode.Open,
                                                    FileAccess.Read))
       {
-        try
+        XmlDiff diff = new XmlDiff(new StreamReader(controlFileStream), new StreamReader(testFileStream));
+        Assert.Throws<XmlSchemaValidationException>(delegate
         {
-          XmlDiff diff = new XmlDiff(new StreamReader(controlFileStream),
-                                     new StreamReader(testFileStream));
           diff.Compare();
-        }
-        catch (System.Exception)
-        {
-          // should be an XmlSchemaValidationException in .NET 2.0
-          // and later
-          exception = true;
-        }
+        });
       }
-      Assert.IsTrue(exception, "expected validation to fail");
     }
 
     [Test]
     public void CanConfigureNotToUseValidatingParser()
     {
-      DiffConfiguration diffConfiguration = new DiffConfiguration(false);
+      DiffConfiguration diffConfiguration = new DiffConfiguration(useValidatingParser: false);
       Assert.AreEqual(false, diffConfiguration.UseValidatingParser);
+      System.Console.WriteLine("Use validating parser: " + diffConfiguration.UseValidatingParser.ToString());
 
       FileStream controlFileStream = File.Open(ValidatorTests.VALID_FILE,
                                                FileMode.Open, FileAccess.Read);
@@ -89,13 +81,13 @@ namespace XmlUnit.Tests
     [Test]
     public void DefaultConfiguredWithWhitespaceHandlingAll()
     {
-      DiffConfiguration diffConfiguration = new DiffConfiguration();
+      DiffConfiguration diffConfiguration = new DiffConfiguration(useValidatingParser: false);
       Assert.AreEqual(WhitespaceHandling.All, diffConfiguration.WhitespaceHandling);
 
-      PerformAssertion(xmlWithoutWhitespace, xmlWithWhitespaceElement, false);
-      PerformAssertion(xmlWithoutWhitespace, xmlWithoutWhitespaceElement, false);
-      PerformAssertion(xmlWithoutWhitespace, xmlWithWhitespace, false);
-      PerformAssertion(xmlWithoutWhitespaceElement, xmlWithWhitespaceElement, false);
+      PerformAssertion(xmlWithoutWhitespace, xmlWithWhitespaceElement, false, diffConfiguration);
+      PerformAssertion(xmlWithoutWhitespace, xmlWithoutWhitespaceElement, false, diffConfiguration);
+      PerformAssertion(xmlWithoutWhitespace, xmlWithWhitespace, false, diffConfiguration);
+      PerformAssertion(xmlWithoutWhitespaceElement, xmlWithWhitespaceElement, false, diffConfiguration);
     }
 
     private void PerformAssertion(string control, string test, bool assertion)
@@ -120,7 +112,7 @@ namespace XmlUnit.Tests
     public void CanConfigureWhitespaceHandlingSignificant()
     {
       DiffConfiguration xmlUnitConfiguration =
-          new DiffConfiguration(WhitespaceHandling.Significant);
+        new DiffConfiguration(whitespaceHandling: WhitespaceHandling.Significant, useValidatingParser: false);
       PerformAssertion(xmlWithoutWhitespace, xmlWithWhitespaceElement,
                        true, xmlUnitConfiguration);
       PerformAssertion(xmlWithoutWhitespace, xmlWithoutWhitespaceElement,
@@ -135,7 +127,7 @@ namespace XmlUnit.Tests
     public void CanConfigureWhitespaceHandlingNone()
     {
       DiffConfiguration xmlUnitConfiguration =
-          new DiffConfiguration(WhitespaceHandling.None);
+        new DiffConfiguration(whitespaceHandling: WhitespaceHandling.None, useValidatingParser: false);
       PerformAssertion(xmlWithoutWhitespace, xmlWithWhitespaceElement,
                        true, xmlUnitConfiguration);
       PerformAssertion(xmlWithoutWhitespace, xmlWithoutWhitespaceElement,

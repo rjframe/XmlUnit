@@ -12,6 +12,8 @@ namespace XmlUnit
   public class AssertXml : Assert
   {
 
+    private DiffConfiguration diffConfiguration = new DiffConfiguration(useValidatingParser: false);
+
     #region AreEqual/AreNotEqual
 
     /// <summary>Worker method to determine whether two pieces of xml markup are similar</summary>
@@ -50,7 +52,7 @@ namespace XmlUnit
 
     public static void AreEqual(XmlInput controlXml, XmlInput testXml, String message = "", Object[] args = null)
     {
-      AreEqual(new XmlDiff(controlXml, testXml), message, args);
+      AreEqual(new XmlDiff(controlXml, testXml, new DiffConfiguration(false)), message, args);
     }
 
     /// <summary>Assert that two pieces of XML markup are similar</summary>

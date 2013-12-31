@@ -37,11 +37,21 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="etc\Book.rng" />
-    <None Include="etc\Book.rngc" />
-    <None Include="etc\Book.xsd" />
-    <None Include="etc\broken.xsd" />
-    <None Include="etc\test.dtd" />
+    <None Include="etc\Book.rng">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="etc\Book.rngc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="etc\Book.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="etc\broken.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="etc\test.dtd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -57,19 +67,47 @@
     <Compile Include="csharp\XsltTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="etc\animal.xsl" />
-    <Content Include="etc\BookXsdGenerated.xml" />
-    <Content Include="etc\BookXsdGeneratedNoSchema.xml" />
-    <Content Include="etc\controlDetail.xml" />
-    <Content Include="etc\controlNamespaces.xml" />
-    <Content Include="etc\invalidBook.xml" />
-    <Content Include="etc\InvalidBookXsdGeneratedNoSchema.xml" />
-    <Content Include="etc\test.blame.html" />
-    <Content Include="etc\test1.xml" />
-    <Content Include="etc\test2.xml" />
-    <Content Include="etc\testAnimal.xml" />
-    <Content Include="etc\testDetail.xml" />
-    <Content Include="etc\testNamespaces.xml" />
+    <Content Include="etc\animal.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\BookXsdGenerated.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\BookXsdGeneratedNoSchema.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\controlDetail.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\controlNamespaces.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\invalidBook.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\InvalidBookXsdGeneratedNoSchema.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\test.blame.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\test1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\test2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\testAnimal.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\testDetail.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="etc\testNamespaces.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">

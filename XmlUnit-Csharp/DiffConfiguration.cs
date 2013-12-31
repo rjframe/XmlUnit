@@ -36,7 +36,7 @@ namespace XmlUnit
       : this(DEFAULT_DESCRIPTION, DEFAULT_USE_VALIDATING_PARSER, whitespaceHandling)
     {
     }
-
+    
     public DiffConfiguration(Boolean useValidatingParser)
       : this(DEFAULT_DESCRIPTION, useValidatingParser, DEFAULT_WHITESPACE_HANDLING)
     {

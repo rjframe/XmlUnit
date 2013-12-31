@@ -11,27 +11,32 @@ namespace XmlUnit
     private bool hasValidated = false;
     private bool isValid = true;
     private string validationMessage;
-    private readonly XmlValidatingReader validatingReader;
+    private readonly XmlReader validatingReader;
 
     private Validator(XmlReader xmlInputReader)
     {
-      validatingReader = new XmlValidatingReader(xmlInputReader);
-      AddValidationEventHandler(new ValidationEventHandler(ValidationFailed));
+      var settings = new XmlReaderSettings();
+
+      settings.ValidationType = ValidationType.Schema;
+      settings.ConformanceLevel = ConformanceLevel.Auto;
+      settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
+      settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessSchemaLocation;
+      settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
+      settings.ValidationEventHandler += new ValidationEventHandler(ValidationFailed);
+      //settings.Schemas.Add("http://www.publishing.org", new XmlTextReader(@"C:\Users\rjframe\Documents\Visual Studio 2012\Projects\XmlUnit\Tests\etc\Book.xsd"));
+      
+      validatingReader = XmlReader.Create(xmlInputReader, settings);
+      
     }
 
     public Validator(XmlInput input) : this(input.CreateXmlReader())
     {
     }
 
-    public void AddValidationEventHandler(ValidationEventHandler handler)
-    {
-      validatingReader.ValidationEventHandler += handler;
-    }
-
-    public void ValidationFailed(object sender, ValidationEventArgs e)
+    private void ValidationFailed(object sender, ValidationEventArgs e)
     {
       isValid = false;
-      validationMessage = e.Message;
+      validationMessage += String.Format("{0} Line {1}.{2}", e.Message, e.Exception.LineNumber, Environment.NewLine);
     }
 
     private void Validate()

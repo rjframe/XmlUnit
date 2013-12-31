@@ -11,7 +11,7 @@ namespace XmlUnit
     private readonly string _baseURI;
     private readonly object _originalInput;
     private readonly XmlInputTranslator _translateInput;
-    private static readonly string CURRENT_FOLDER = ".";
+    private static readonly string CURRENT_FOLDER = ""; //".";
 
     private XmlInput(Object someXml, String baseURI, XmlInputTranslator translator)
     {
