@@ -6,17 +6,21 @@ using XmlUnit;
 namespace XmlUnit.Tests
 {
 
+  /// <summary>Tests for the AssertXml class located in AssertXml.cs</summary>
   [TestFixture]
   public class XmlAssertionTests
   {
+
+    private DiffConfiguration diffConfiguration = new DiffConfiguration(useValidatingParser: false);
 
     [Test]
     public void AssertStringEqualAndIdenticalToSelf()
     {
       string control = "<assert>true</assert>";
       string test = "<assert>true</assert>";
-      AssertXml.AreIdentical(control, test);
-      AssertXml.AreEqual(control, test);
+      var xmlDiff = new XmlDiff(control, test, diffConfiguration);
+      AssertXml.AreIdentical(xmlDiff);
+      AssertXml.AreEqual(xmlDiff);
     }
 
     [Test]
@@ -24,7 +28,7 @@ namespace XmlUnit.Tests
     {
       string control = "<assert>true</assert>";
       string test = "<assert>false</assert>";
-      XmlDiff xmlDiff = new XmlDiff(control, test);
+      XmlDiff xmlDiff = new XmlDiff(control, test, diffConfiguration);
       AssertXml.AreNotIdentical(xmlDiff);
       AssertXml.AreNotEqual(xmlDiff);
     }
@@ -37,7 +41,7 @@ namespace XmlUnit.Tests
       try
       {
         XmlDiff diff = new XmlDiff(new XmlInput("<a/>"), new XmlInput("<b/>"),
-                                   new DiffConfiguration(description));
+                                   new DiffConfiguration(description, useValidatingParser: false));
         AssertXml.AreIdentical(diff);
         caughtException = false;
       }
@@ -56,7 +60,7 @@ namespace XmlUnit.Tests
       try
       {
         XmlDiff diff = new XmlDiff(new XmlInput("<a/>"), new XmlInput("<b/>"),
-                                   new DiffConfiguration(description));
+                                   new DiffConfiguration(description, useValidatingParser: false));
         AssertXml.AreEqual(diff);
         caughtException = false;
       }
@@ -70,14 +74,9 @@ namespace XmlUnit.Tests
     [Test]
     public void AssertXmlValidTrueForValidFile()
     {
-      StreamReader reader = GetStreamReader(ValidatorTests.VALID_FILE);
-      try
+      using (var reader = GetStreamReader(ValidatorTests.VALID_FILE))
       {
         AssertXml.IsValidXml(reader);
-      }
-      finally
-      {
-        reader.Close();
       }
     }
 

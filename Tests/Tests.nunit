@@ -1,5 +1,5 @@
 ﻿<NUnitProject>
-  <Settings activeconfig="Debug" />
+  <Settings activeconfig="Debug" processModel="Default" domainUsage="Default" appbase="C:\Users\rjframe\Documents\Visual Studio 2012\Projects\XmlUnit\Tests" />
   <Config name="Debug" binpathtype="Auto">
     <assembly path="bin\Debug\Tests.dll" />
   </Config>

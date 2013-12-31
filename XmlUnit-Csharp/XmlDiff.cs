@@ -28,13 +28,23 @@ namespace XmlUnit
     {
     }
 
+    public XmlDiff(TextReader control, TextReader test, DiffConfiguration diffConfiguration)
+      : this(new XmlInput(control), new XmlInput(test), diffConfiguration)
+    {
+    }
+
     public XmlDiff(TextReader control, TextReader test)
-      : this(new XmlInput(control), new XmlInput(test))
+      : this(new XmlInput(control), new XmlInput(test), new DiffConfiguration())
+    {
+    }
+
+    public XmlDiff(string control, string test, DiffConfiguration diffConfiguration)
+      : this(new XmlInput(control), new XmlInput(test), diffConfiguration)
     {
     }
 
     public XmlDiff(string control, string test)
-      : this(new XmlInput(control), new XmlInput(test))
+      : this(new XmlInput(control), new XmlInput(test), new DiffConfiguration())
     {
     }
 
@@ -49,7 +59,23 @@ namespace XmlUnit
 
       if (_diffConfiguration.UseValidatingParser)
       {
-        var validatingReader = new XmlValidatingReader(xmlReader);
+        var settings = new XmlReaderSettings();
+        settings.ValidationType = ValidationType.Schema;
+        settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
+        settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessSchemaLocation;
+        settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
+        settings.ValidationEventHandler +=
+          delegate(Object sender, ValidationEventArgs e)
+          {
+            throw new XmlSchemaValidationException(e.Message, e.Exception);
+          };
+
+        //var xmlDoc = new XmlDocument();
+        
+        var validatingReader = XmlReader.Create(xmlReader, settings);
+        
+        //xmlDoc.Load(validatingReader);
+        //settings.Schemas.Add(xmlDoc.Schemas);
         return validatingReader;
       }
 
@@ -206,7 +232,7 @@ namespace XmlUnit
         }
         else
         {
-          testAttr = FindAttributeByNameAndNs(testAttributes, controlAttrName, controlAttributes[i] .NamespaceURI);
+          testAttr = FindAttributeByNameAndNs(testAttributes, controlAttrName, controlAttributes[i].NamespaceURI);
         }
 
         if (testAttr != null)
